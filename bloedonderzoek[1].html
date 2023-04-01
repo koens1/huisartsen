@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Huisarts online | Artsen collectief</title>
+<link rel="shortcut icon" href="icon.png" />
+<link href="stylev2.css" type="text/css" rel="stylesheet"
+</head>
+<body>
+<div class="container">
+<div class="navbar">
+  <a class="active" href="./site v2.html"><img id="home" src="home_20.png"></a> 
+  <a class="active" href="#"><img id="user" src="Usersettings.png"></a> 
+  <a class="active" href="./copyright.html"><img id="copyright" src="copyright.png"></a> 
+  <a class="spoed" href="#" onclick="myFunction()">Spoed</a> 
+ 
+  <div class="seperater"></div>
+  
+</div>
+</div>
+	<div id="primary">
+		<div id="kolommen">
+			<a class="chatmetarts" href="chatmetarts.html" title="chatmetarts" id="logotrick">chatmetarts</a>
+				<p></p>
+			<a class="consult" href="consult.html" title="consult" id="logotrick">consult</a>
+				<p></p>
+			<a class="doorverwijzing" href="doorverwijzing.html" title="doorverwijzing" id="logotrick">doorverwijzing</a>
+				<p></p>
+			</div>				
+		</div>
+	</div>
+	
+    <div class="modalspoed" id="modalspoed"></div>	   
+    <div id="content">
+	
+<form id="doorverwijzingform" action="./site v2.html" method="post" onsubmit="return confirm('Uw doorverwijzing is verstuurd');" name="myForm">
+<h1>Bloedonderzoek</h1>
+   <p><label for="text">Doel onderzoek      :</label></p>
+	<textarea id="textklacht" name="klachttext" rows="6" cols="50"required></textarea>
+  </p>
+  <p>
+    Onderzoeken op <select autocomplete="off"required>
+	<option style="display:none">
+        <option value="cardioloog">
+           Onstekingswaarde (CRP)
+        </option>
+        <option value="kno">
+           HB-Test
+        </option>
+        <option value="long">
+           Glucose
+        </option>
+		<option value="psycholoog">
+            Bloedarmoede
+        </option>
+    </select>
+  </p>
+  <p>
+  Bent u hier al eerder op onderzocht
+    <select id="optie" autocomplete="off"required>
+	 <option style="display:none">
+	 <option value="ja">Ja</option>
+	 <option value="nee">Nee</option>
+	 </select>
+  </p>
+  <p>
+  Bent u hier al eerder voor bij de huisarts geweest
+    <select id="optie" autocomplete="off"required>
+	<option style="display:none">
+	 <option value="ja">Ja</option>
+	 <option value="nee">Nee</option>
+	 </select>
+  </p>
+ <p>
+  Wilt u vooraf contact met de arts hierover
+    <select id="optie" autocomplete="off"required>
+	<option style="display:none">
+	 <option value="ja">Ja</option>
+	 <option value="nee">Nee</option>
+	 </select>
+	 <button type="submit" class="doorverwijzing-btn-send">Verzenden</button>
+	 </p>
+</form>
+	</div>
+    
+<div id="main">	
+	<div id="secondary">
+		<div id="kolommen">
+			<a class="bloedonderzoek" href="bloedonderzoek.html" title="bloedonderzoek" id="logotrick">bloedonderzoek</a>
+				<p></p>
+			<a class="mijnmedicijnen" href="mijnmedicijnen.html" title="mijnmedicijnen" id="logotrick">mijnmedicijnen</a>
+				<p></p>
+			</div>				
+		</div>
+	</div>
+<script>
+function doorverwijzing() {
+  alert("Uw aanvraag bloedonderzoek is verzonden!");
+}
+const months = ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'];
+const weekDays = ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'];
+
+const today = new Date();
+const thisYear = today.getFullYear();
+const thisMonth = today.getMonth();
+const thisDay = today.getDate();
+const thisWeekDay = today.getDay();
+const numberOfDays = new Date(thisYear, thisMonth + 1, 0).getDate();
+const FirstDayWeekDay = new Date(thisYear, thisMonth, 1).getDay();
+
+const events = {};
+
+function myFunction(day) {
+  const modalspoed = document.getElementById('modalspoed');
+  modalspoed.classList.add('is-open'); //el.classList.remove(className);
+  main.className += ' modalspoed-is-open';
+  let html = '  <button class="close" onClick="handlemodalspoedClose()">X</button><h4>LET OP!!! U staat op het punt een noodoproep te doen. Misbruik resulteert in uitschakeling van deze functie</h4> <form> <button class="save" onClick="noodoproep(); return false;"type="submit">LEVENSBEDREIGENDE SITUATIE</button><button id="myButton" class="cancel" onClick="navigatie(); return false;">LEVENSBEDREIGEND MAAR WEL SPOEDEISEND</button></form>';
+  modalspoed.innerHTML = html;
+}
+
+function handlemodalspoedClose() {
+  const modalspoed = document.getElementById('modalspoed');
+  modalspoed.classList.remove('is-open');
+  main.classList.remove('modalspoed-is-open');
+}
+
+function handleDelete(day) {
+  delete events[day];
+  handlemodalspoedClose();
+}
+
+function handleSubmit(day) {
+  const text = document.getElementById('text');
+  events[day] = text.value;
+  handlemodalspoedClose();
+}
+	
+	function navigatie() {
+        location.href = "spoed.html";
+		}
+		
+	function noodoproep() {
+	window.open('tel:12345');
+		}
+</script>
+	
+</body>
+</html>
